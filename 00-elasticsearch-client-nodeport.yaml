@@ -1,0 +1,29 @@
+## For minikube container:
+## $ minikube service ingress-controller
+##
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-client-nodeport
+  namespace: infra
+  labels:
+    app: elasticsearch
+    role: client
+spec:
+  selector:
+    app: elasticsearch
+    role: client
+  type: NodePort
+  ports:
+    - name: http
+      port: 9200
+      targetPort: 9200
+      nodePort: 31200
+      # protocol: TCP
+  # selector:
+  #   elasticsearch.k8s.elastic.co/cluster-name: "quickstart"
+  #   elasticsearch.k8s.elastic.co/node-master: "false"
+  #   elasticsearch.k8s.elastic.co/node-data: "false"
+  #   elasticsearch.k8s.elastic.co/node-ingest: "false"
+  #   elasticsearch.k8s.elastic.co/node-ml: "false"
+  #   elasticsearch.k8s.elastic.co/node-transform: "false"
